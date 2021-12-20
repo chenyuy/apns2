@@ -139,7 +139,7 @@ func TestDialTLSTimeout(t *testing.T) {
 	if _, e = dialTLS("tcp", address, nil); e == nil {
 		t.Fatal("Dial completed successfully")
 	}
-	if !strings.Contains(e.Error(), "timed out") {
+	if !strings.Contains(e.Error(), "timed out") && e.Error() != context.DeadlineExceeded.Error() {
 		t.Errorf("resulting error not a timeout: %s", e)
 	}
 }
